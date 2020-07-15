@@ -5,11 +5,17 @@ const colors = ["#3B60FF", "#F1A0C5", "#EEAB1E", "#5CC6F3",
     "#E4F1FB", "#3353D8", "#FBEBEB", "#C7E0FE"];
 const dimension = 100;
 
-// @ts-ignore
-const Dancefloor = ({ data }) => {
+interface DancefloorProps {
+    data: {
+        columns: number
+        rows: number
+    }
+}
+
+const Dancefloor = (props: DancefloorProps) => {
     const canvas = useRef(null);
-    const [rows, setRows] = useState(data?.rows);
-    const [columns, setColumns] = useState(data?.columns);
+    const [rows, setRows] = useState(props.data?.rows);
+    const [columns, setColumns] = useState(props.data?.columns);
     const [width, setWidth] = useState(400);
     const [height, setHeight] = useState(200);
 
