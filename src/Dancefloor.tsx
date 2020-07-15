@@ -1,19 +1,17 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import './Dancefloor.css';
 
-// const serverMockedResponse = () => {
-//
-// }
 const colors = ["#3B60FF", "#F1A0C5", "#EEAB1E", "#5CC6F3",
     "#E4F1FB", "#3353D8", "#FBEBEB", "#C7E0FE"];
-
 const dimension = 100;
 
-
-const Dancefloor = () => {
+// @ts-ignore
+const Dancefloor = ({ data }) => {
     const canvas = useRef(null);
-    const [rows, setRows] = useState(2);
-    const [columns, setColumns] = useState(4);
+    const [rows, setRows] = useState(data?.rows);
+    const [columns, setColumns] = useState(data?.columns);
+    const [width, setWidth] = useState(400);
+    const [height, setHeight] = useState(200);
 
     useEffect(() => {
         const ctx = canvas.current.getContext("2d");
@@ -27,13 +25,15 @@ const Dancefloor = () => {
             }
         }
         generateTable(rows, columns);
-    }, [rows, columns, colors]);
+    }, [rows, columns]);
 
     const handleRowsChange = (event: ChangeEvent<HTMLInputElement> ) => {
         setRows(parseInt(event.target.value));
+        setHeight(parseInt(event.target.value) * dimension);
     }
     const handleColumnsChange = (event: ChangeEvent<HTMLInputElement>) => {
         setColumns(parseInt(event.target.value));
+        setWidth(parseInt(event.target.value) * dimension);
     }
 
     const handleGenerate = () => {}
@@ -51,17 +51,16 @@ const Dancefloor = () => {
         colorClickedTile(event.clientX, event.clientY);
     }
 
-    return (
-        <div className="Dancefloor">
-            <div className="Dancefloor-controllers">
-                <input type="number" name="rows" value={rows} onChange={handleRowsChange}/>
-                <input type="number" name="columns" value={columns} onChange={handleColumnsChange}/>
-                <button type="button" onClick={handleGenerate}>Generate</button>
-
-            </div>
-            <canvas className="Dancefloor-canvas" ref={canvas} width={1200} height={1600} onClick={handleCanvasOnClick} />
+    return <div className="Dancefloor">
+        <div className="Dancefloor-controllers">
+            <input type="number" name="rows" value={rows} onChange={handleRowsChange}/>
+            <input type="number" name="columns" value={columns} onChange={handleColumnsChange}/>
+            <button type="button" onClick={handleGenerate}>Generate</button>
         </div>
-    )
+        <canvas
+            className="Dancefloor-canvas" ref={canvas} width={width} height={height}
+                onClick={handleCanvasOnClick}/>
+    </div>
 }
 
 export default Dancefloor

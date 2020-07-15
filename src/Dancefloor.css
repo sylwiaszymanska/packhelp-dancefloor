@@ -1,6 +1,9 @@
 .Dancefloor {
     width: 100vw;
+}
 
+.Dancefloor-controllers {
+    margin-bottom: 50px;
 }
 
 .Dancefloor-canvas{
