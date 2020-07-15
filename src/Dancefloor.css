@@ -1,9 +1,31 @@
 .Dancefloor {
+    padding-top: 20px;
     width: 100vw;
+    overflow: hidden;
+}
+
+.Dancefloor h1 {
+    margin-top: 0;
 }
 
 .Dancefloor-controllers {
     margin-bottom: 50px;
+}
+
+.Dancefloor-controllers input, .Dancefloor-generate-button {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    border: 1px solid lightgray;
+    background-color: white;
+    box-sizing: border-box;
+    color: gray;
+    padding: 10px;
+    margin-right: 20px;
+}
+
+.Dancefloor-generate-button {
+    cursor: pointer;
 }
 
 .Dancefloor-canvas{

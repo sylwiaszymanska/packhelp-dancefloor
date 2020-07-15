@@ -36,7 +36,7 @@ const Dancefloor = ({ data }) => {
         setWidth(parseInt(event.target.value) * dimension);
     }
 
-    const handleGenerate = () => {}
+    // const handleGenerate = () => {}
     const colorClickedTile = (x: number, y: number) => {
         const diffY = y - canvas.current.offsetTop ;
         const diffX = x - canvas.current.offsetLeft;
@@ -52,10 +52,17 @@ const Dancefloor = ({ data }) => {
     }
 
     return <div className="Dancefloor">
+        <h1>Dancefloor</h1>
         <div className="Dancefloor-controllers">
-            <input type="number" name="rows" value={rows} onChange={handleRowsChange}/>
-            <input type="number" name="columns" value={columns} onChange={handleColumnsChange}/>
-            <button type="button" onClick={handleGenerate}>Generate</button>
+            <label>
+                Set column quantity: {" "}
+                <input type="number" name="rows" value={rows} onChange={handleRowsChange}/>
+            </label>
+            <label>
+                Set row quantity: {" "}
+                <input type="number" name="columns" value={columns} onChange={handleColumnsChange}/>
+            </label>
+            {/*<button className="Dancefloor-generate-button" type="button" onClick={handleGenerate}>Generate</button>*/}
         </div>
         <canvas
             className="Dancefloor-canvas" ref={canvas} width={width} height={height}
