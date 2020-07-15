@@ -1,15 +1,17 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
+import './Dancefloor.css';
 
 // const serverMockedResponse = () => {
 //
 // }
+const colors = ["#3B60FF", "#F1A0C5", "#EEAB1E", "#5CC6F3",
+    "#E4F1FB", "#3353D8", "#FBEBEB", "#C7E0FE"];
+
+const dimension = 100;
+
 
 const Dancefloor = () => {
     const canvas = useRef(null);
-    const [colors, setColors]= useState(["#3B60FF", "#F1A0C5", "#EEAB1E", "#5CC6F3",
-        "#E4F1FB", "#3353D8", "#FBEBEB", "#C7E0FE"]);
-    const dimension = 100;
-
     const [rows, setRows] = useState(2);
     const [columns, setColumns] = useState(4);
 
@@ -24,7 +26,6 @@ const Dancefloor = () => {
                 }
             }
         }
-
         generateTable(rows, columns);
     }, [rows, columns, colors]);
 
@@ -36,20 +37,18 @@ const Dancefloor = () => {
     }
 
     const handleGenerate = () => {}
-    const getClickedTile = (x: number, y: number) => {
+    const colorClickedTile = (x: number, y: number) => {
         const diffY = y - canvas.current.offsetTop ;
         const diffX = x - canvas.current.offsetLeft;
         const clickedColumn = Math.floor(diffX / dimension);
         const clickedRow = Math.floor(diffY / dimension);
-        console.log(clickedRow, clickedColumn);
-        const elementInArray = clickedRow * columns + clickedColumn;
-        const newColors = [...colors];
-        newColors[elementInArray] = "#000000"
-        setColors(newColors);
+        const ctx = canvas.current.getContext("2d");
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(clickedColumn*dimension, clickedRow*dimension, dimension, dimension);
     }
 
     const handleCanvasOnClick = (event: MouseEvent<HTMLCanvasElement>) => {
-        getClickedTile( event.clientX, event.clientY);
+        colorClickedTile(event.clientX, event.clientY);
     }
 
     return (
@@ -60,7 +59,7 @@ const Dancefloor = () => {
                 <button type="button" onClick={handleGenerate}>Generate</button>
 
             </div>
-            <canvas className="Dancefloor-canvas" ref={canvas} width={1600} height={400} onClick={handleCanvasOnClick} />
+            <canvas className="Dancefloor-canvas" ref={canvas} width={1200} height={1600} onClick={handleCanvasOnClick} />
         </div>
     )
 }
